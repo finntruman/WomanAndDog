@@ -10,6 +10,8 @@ public class ControllerPlayer : MonoBehaviour {
 
     // COMPONENTS
     private Rigidbody   com_rigidbody;
+    private bool        m_jumping;
+    private float       m_distToGround;
 
     // CONTROLS
     public int m_controlsUsed;
@@ -35,6 +37,8 @@ public class ControllerPlayer : MonoBehaviour {
 	void Start ()
     {
         com_rigidbody   = GetComponent<Rigidbody>();
+        m_jumping       = false;
+        m_distToGround  = GetComponent<Collider>().bounds.extents.y;
 
         key_left    = KeyCode.A;
         key_right   = KeyCode.D;
@@ -45,7 +49,7 @@ public class ControllerPlayer : MonoBehaviour {
         m_deadZone  = 0.25f;
 
         m_speed     = 5.0f;
-        m_jumpForce = 400.0f;
+        m_jumpForce = 250.0f;
     }
 	
 	// Update is called once per frame
@@ -78,7 +82,10 @@ public class ControllerPlayer : MonoBehaviour {
         if (Mathf.Abs(zMovement) < m_deadZone) zMovement = 0.0f;
 
         // Jump
-        if (Input.GetKeyDown(key_jump) /*|| Input.GetButtonDown(btn_jump)*/) com_rigidbody.AddForce(0, m_jumpForce, 0);
+        if ((Input.GetKeyDown(key_jump) /*|| Input.GetButtonDown(btn_jump)*/) && IsGrounded())
+        {
+            com_rigidbody.AddForce(0, m_jumpForce, 0);
+        }
 
         // Code helped created from this forum post: https://answers.unity.com/questions/803365/make-the-player-face-his-movement-direction.html
 
@@ -88,4 +95,18 @@ public class ControllerPlayer : MonoBehaviour {
         transform.rotation = (movement == Vector3.zero) ? transform.rotation : Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(movement), 0.15f);
         transform.Translate(movement * m_speed * Time.deltaTime, Space.World);
 	}
+
+    // Code to detect grounded helped made with this forum post: https://answers.unity.com/questions/196381/how-do-i-check-if-my-rigidbody-player-is-grounded.html
+    private bool IsGrounded()
+    {
+        return Physics.Raycast(transform.position, -Vector3.up, m_distToGround + 0.1f);
+    }
+
+    private void OnTriggerEnter(Collider trigger)
+    {
+        if (trigger.gameObject.tag == "Climb" && !IsGrounded())
+        {
+            print("Triggered climb");
+        }
+    }
 }

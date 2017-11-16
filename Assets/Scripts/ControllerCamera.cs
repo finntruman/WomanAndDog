@@ -17,8 +17,8 @@ public class ControllerCamera : MonoBehaviour {
     void Start()
     {
         m_xPos = 0.0f;
-        m_yPos = 4.7f;
-        m_zPos = -10.0f;
+        m_yPos = 5.5f;
+        m_zPos = -13.0f;
     }
 
     // Update is called once per frame
