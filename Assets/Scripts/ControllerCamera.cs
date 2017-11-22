@@ -17,7 +17,7 @@ public class ControllerCamera : MonoBehaviour {
     void Start()
     {
         m_xPos = 0.0f;
-        m_yPos = 5.5f;
+        m_yPos = 3.8f;
         m_zPos = -13.0f;
     }
 
