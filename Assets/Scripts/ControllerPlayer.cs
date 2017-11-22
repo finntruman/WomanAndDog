@@ -103,7 +103,7 @@ public class ControllerPlayer : MonoBehaviour {
             transform.Translate(movement * m_speed * Time.deltaTime, Space.World);
         }
 
-        m_farPlane.transform.position = new Vector3(transform.position.x, m_farPlane.transform.position.y, m_farPlane.transform.position.z);
+        m_farPlane.transform.position = new Vector3(transform.position.x, 0.0f, 32.0f);
 	}
 
     // Code to detect grounded helped made with this forum post: https://answers.unity.com/questions/196381/how-do-i-check-if-my-rigidbody-player-is-grounded.html

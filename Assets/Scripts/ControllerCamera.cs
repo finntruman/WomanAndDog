@@ -9,6 +9,7 @@ public class ControllerCamera : MonoBehaviour {
     public float m_xPos;
     public float m_yPos;
     public float m_zPos;
+    public float m_xRot;
 
     public float m_xDifference;
     public float m_moveThresh = 2.0f;
@@ -17,8 +18,10 @@ public class ControllerCamera : MonoBehaviour {
     void Start()
     {
         m_xPos = 0.0f;
-        m_yPos = 3.8f;
+        m_yPos = 5.1f;
         m_zPos = -13.0f;
+
+        m_xRot = 15.0f;
     }
 
     // Update is called once per frame
