@@ -20,8 +20,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4493475913632510}
   - component: {fileID: 33795029716054086}
-  - component: {fileID: 135376998323699722}
   - component: {fileID: 23631506450123628}
+  - component: {fileID: 136311109057931908}
   m_Layer: 0
   m_Name: Bush
   m_TagString: Untagged
@@ -36,8 +36,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1407818089171912}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 8.787699, y: -1.92, z: 5.34}
-  m_LocalScale: {x: 3.246616, y: 3.2466137, z: 3.2466137}
+  m_LocalPosition: {x: -10.37, y: 0.26259995, z: -1.41472}
+  m_LocalScale: {x: 4.0083337, y: 4.0083323, z: 4.0083323}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -81,8 +81,8 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1407818089171912}
   m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
---- !u!135 &135376998323699722
-SphereCollider:
+--- !u!136 &136311109057931908
+CapsuleCollider:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
@@ -90,6 +90,7 @@ SphereCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 2
   m_Radius: 0.5
+  m_Height: 1.4
+  m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}

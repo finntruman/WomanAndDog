@@ -97,15 +97,15 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000833551571282}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 5.64, y: 1.859, z: 0.08}
+  m_LocalRotation: {x: -0, y: 0.6923079, z: -0, w: 0.72160226}
+  m_LocalPosition: {x: -6.34, y: 0.89, z: 3.08}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4390254482672344}
   - {fileID: 4830359542659828}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 87.62601, z: 0}
 --- !u!23 &23447999028267840
 MeshRenderer:
   m_ObjectHideFlags: 1
@@ -226,7 +226,7 @@ Light:
   serializedVersion: 8
   m_Type: 2
   m_Color: {r: 0.49632353, g: 0.5476673, b: 0.7941176, a: 1}
-  m_Intensity: 0.75
+  m_Intensity: 1.2
   m_Range: 250
   m_SpotAngle: 30
   m_CookieSize: 10
@@ -266,6 +266,8 @@ MonoBehaviour:
   m_speed: 0
   m_jumpForce: 0
   rotatespeed: 0.1
+  m_whistled: 0
+  com_sphereColl: {fileID: 0}
   m_farPlane: {fileID: 0}
 --- !u!136 &136384806366686808
 CapsuleCollider:
@@ -276,7 +278,7 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.5
+  m_Radius: 0.75
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}

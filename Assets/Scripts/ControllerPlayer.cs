@@ -10,8 +10,13 @@ public class ControllerPlayer : MonoBehaviour {
 
     // COMPONENTS
     private Rigidbody   com_rigidbody;
+
+    //
     private bool        m_jumping;
+    private bool        m_grabbed;
+    private GameObject  m_grabbedObject;
     private float       m_distToGround;
+    public float        m_stamina;
 
     // CONTROLS
     bool m_hasControl; // determines whether or not the player has control over the character. This is for when prolonged animations need to be performed like climbing and pushing/pulling
@@ -21,6 +26,7 @@ public class ControllerPlayer : MonoBehaviour {
     private KeyCode key_up;
     private KeyCode key_down;
     private KeyCode key_jump;
+    private int key_mb_right;
 
     // GAMEPAD
     private float m_deadZone;
@@ -52,6 +58,9 @@ public class ControllerPlayer : MonoBehaviour {
             return;
         }
 
+        m_grabbed   = false;
+        m_stamina   = 1000.0f;
+
         com_rigidbody   = GetComponent<Rigidbody>();
         com_sphereColl = GetComponent<SphereCollider>();
         m_jumping       = false;
@@ -64,6 +73,7 @@ public class ControllerPlayer : MonoBehaviour {
         key_up      = KeyCode.W;
         key_down    = KeyCode.S;
         key_jump    = KeyCode.Space;
+        key_mb_right = 1;
 
         m_deadZone  = 0.25f;
 
@@ -95,6 +105,28 @@ public class ControllerPlayer : MonoBehaviour {
             {
                 zMovement += 1;
             }
+            if (Input.GetMouseButtonDown(key_mb_right))
+            {
+                if (m_grabbed)
+                {
+                    m_grabbedObject.transform.parent = null;
+                    m_grabbed = false;
+                    m_speed = 5.0f;
+                }
+                else
+                {
+                    RaycastHit hit;
+                    Physics.Raycast(transform.position, transform.forward, out hit, 1.5f);
+                    GameObject obj = hit.collider.gameObject;
+                    if (obj.tag == "Grab")
+                    {
+                        obj.transform.parent = this.transform;
+                        m_grabbedObject = obj;
+                        m_grabbed = true;
+                        m_speed = 3.0f;
+                    }
+                }
+            }
 
             // Stick input
             xMovement = Input.GetAxisRaw("Horizontal");
@@ -102,19 +134,28 @@ public class ControllerPlayer : MonoBehaviour {
             if (Mathf.Abs(xMovement) < m_deadZone) xMovement = 0.0f;
             if (Mathf.Abs(zMovement) < m_deadZone) zMovement = 0.0f;
 
+            float staminaLoss = (Mathf.Abs(xMovement) + Mathf.Abs(zMovement)) * 0.1f;
+
             // Jump
-            if ((Input.GetKeyDown(key_jump) /*|| Input.GetButtonDown(btn_jump)*/) && IsGrounded())
+            if ((Input.GetKeyDown(key_jump) /*|| Input.GetButtonDown(btn_jump)*/) && IsGrounded() && !m_grabbed)
             {
                 com_rigidbody.AddForce(0, m_jumpForce, 0);
+                staminaLoss += 1.5f;
             }
 
             // Code helped created from this forum post: https://answers.unity.com/questions/803365/make-the-player-face-his-movement-direction.html
 
             Vector3 movement = new Vector3(xMovement, 0.0f, zMovement);
 
+            if (m_grabbed)
+            {
+                //if (transform.rotation.y % 90 != 0) transform.eulerAngles = new Vector3(transform.rotation.x, Mathf.Round(transform.rotation.y / 90) * 90, transform.rotation.z);
+            }
             // If the movement vector is zero, set rotation to itself, else slerp towards the direction of movement
-            transform.rotation = (movement == Vector3.zero) ? transform.rotation : Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(movement), 0.15f);
+            else transform.rotation = (movement == Vector3.zero) ? transform.rotation : Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(movement), 0.15f);
             transform.Translate(movement * m_speed * Time.deltaTime, Space.World);
+
+            m_stamina -= staminaLoss * Time.deltaTime;
         }
 
         m_farPlane.transform.position = new Vector3(transform.position.x, 0.0f, 32.0f);

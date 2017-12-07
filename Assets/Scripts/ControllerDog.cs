@@ -12,10 +12,12 @@ public class ControllerDog : MonoBehaviour {
         // -- ROOT AND ITS CHILDREN --
         // Root node selector
         m_AI = new SelectorNode();
+        //m_AI = gameObject.AddComponent<SelectorNode>();
 
         // 1st node of Root
         Condition whistleCondition = new Condition(Conditions.hasWhistled);
         ConditionNode whistle = new ConditionNode(whistleCondition, this);
+        //ConditionNode whistle = gameObject.AddComponent<ConditionNode>();
 
         // 2nd node of Root
         Condition inSphereCondition = new Condition(Conditions.inSphere);
