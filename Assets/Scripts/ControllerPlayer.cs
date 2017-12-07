@@ -32,14 +32,28 @@ public class ControllerPlayer : MonoBehaviour {
     public float m_speed;
     public float m_jumpForce;
     public float rotatespeed = 0.1f;
+    public bool m_whistled;
 
     // OTHER
+    public SphereCollider com_sphereColl;
     public GameObject m_farPlane;
+    public static ControllerPlayer g_player = null;
 
     // Use this for initialization
     void Start ()
     {
+        if (!g_player)
+        {
+            g_player = this;
+        }
+        else
+        {
+            Destroy(this.gameObject);
+            return;
+        }
+
         com_rigidbody   = GetComponent<Rigidbody>();
+        com_sphereColl = GetComponent<SphereCollider>();
         m_jumping       = false;
         m_distToGround  = GetComponent<Collider>().bounds.extents.y;
 

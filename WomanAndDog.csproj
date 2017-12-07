@@ -78,7 +78,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Scripts\Behaviour tree AI\BehaviourAI.cs" />
     <Compile Include="Assets\Scripts\ControllerCamera.cs" />
+    <Compile Include="Assets\Scripts\ControllerDog.cs" />
     <Compile Include="Assets\Scripts\ControllerPlayer.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
